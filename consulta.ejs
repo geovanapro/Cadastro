@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="consulta1.css">
+</head>
+<br>
+<br>
+<!--SP MEDICAL CABEÇALHO-->
+<style>
+    .cabeçalho {
+        border-radius: 1000px;
+    }
+
+    .adm {
+        color: rgb(255, 255, 255);
+        left: 100px;
+
+    }
+
+    .dropdown-item {
+        margin-left: -1000px;
+        color: blueviolet;
+    }
+</style>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-sm bg-info navbar-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="user.png" alt="MEDICAL GROUP" style="width:40px;" class="cabeçalho">
+
+                </a>
+            </div>
+            <div class="dropdown" bg-info>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Menu
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="cadastro.html">Cadastro</a></li>
+                    <li><a class="Agendamento" href="consulta.html">Agendamento</a></li>
+                </ul>
+            </div>
+    </div>
+
+    </nav>
+
+    <div class="form">
+        <form action="#">
+            <div class="form-header">
+                <div class="title">
+                    <h1>Cadastro:</h1>
+                </div>
+
+            </div>
+            <div class="input-group">
+                <div class="input-box">
+                    <label for="firstname">Paciente</label>
+                    <input id="firstname" type="text" name="paciente" placeholder="Digite o nome" required>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-box">
+                        <label for="email">Médico</label>
+                        <select id="medico">
+                            <option value="AC">Dr.Jorge</option>
+                            <option value="AL">Dr.Amanda</option>
+                            <option value="AP">Dr.Roberto</option>
+                        </select>
+                        <script>
+                            $(document).ready(function () {
+                                $('#estado').select2();
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <div class="input-group">
+                        <label for="number">Especialidade</label>
+                        <select id="medico">
+                            <option value="AC">Gastrentologia(Dr.Manuel)</option>
+                            <option value="AL">Odontologia(Dr.Amanda)</option>
+                            <option value="AP">Clínico Geral(Dr.Roberto)</option>
+                        </select>
+                        <script>
+                            $(document).ready(function () {
+                                $('#estado').select2();
+                            });
+                        </script>
+                        <input id="number" type="tel" name="number" placeholder="(xx) xxxx-xxxx" required>
+                    </div>
+                </div>
+
+
+                </div>
+            </div>
+
+            <div class="continue-button">
+                <button><a href="#">Finalizar</a> </button>
+            </div>
+    </div>
+    </form>
+    </div>
+    </div>
+
+    </div>
+
+
+    </main>
+
+    </div>
+</body>
+
+</html>
