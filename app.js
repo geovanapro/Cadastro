@@ -8,10 +8,10 @@ const port = 8080; // Porta em que o servidor será executado
 app.use(express.urlencoded({ extended: true }));
 
 const con = mysql.createConnection({
-  host: "localhost",
-  user: "phpmyadmin",
-  password: "aluno",
-  database: "medical"
+    host: "localhost",
+    user: "phpmyadmin",
+    password: "aluno",
+    database: "medical"
 });
 
 app.use(
@@ -24,9 +24,15 @@ app.use(
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Configurar EJS como o motor de visualização
+app.set('view engine', 'ejs');
+
+app.get('/', (req, res) => {
+    res.render(__dirname + '/login.ejs');
+});
 
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/login.ejs');
+    res.render(__dirname + '/login.ejs');
 });
 
 app.post('/login', (req, res) => {
@@ -50,31 +56,31 @@ app.post('/login', (req, res) => {
 });
 
 // Rota para exibir a página home.html
-app.get('/home.ejs', (req, res) => {
-    res.sendFile(__dirname + '/view/home.ejs');
-    server.use(express.static(_dirname + '/'));
-    });
-    
-    // Rota para exibir a página login.html
-    app.get('/login.ejs', (req, res) => {
-    res.sendFile(__dirname + '/view/login.ejs');
-    server.use(express.static(_dirname + '/'));
-    });
-    
-    // Rota para exibir a página cadastro.html
-    app.get('/cadastro.ejs', (req, res) => {
-    res.sendFile(__dirname + '/view/cadastro.ejs');
-    server.use(express.static(_dirname + '/'));
-    });
-    
-    // Rota para exibir a página consulta.html
-    app.get('/consulta.ejs', (req, res) => {
-    res.sendFile(__dirname + '/view/consulta.ejs');
-    server.use(express.static(_dirname + '/'));
-    });
-    
-    
-    // Iniciar o servidor
-    app.listen(port, () => {
-      console.log(`Servidor Express está rodando na porta ${port}`);
-    });
+app.get('/home', (req, res) => {
+    res.render(__dirname + '/home.ejs');
+    //server.use(express.static(_dirname + '/'));
+});
+
+// Rota para exibir a página login.html
+app.get('/login', (req, res) => {
+    res.render(__dirname + '/login.ejs');
+    // server.use(express.static(_dirname + '/'));
+});
+
+// Rota para exibir a página cadastro.html
+app.get('/cadastro', (req, res) => {
+    res.render(__dirname + '/cadastro.ejs');
+    // server.use(express.static(_dirname + '/'));
+});
+
+// Rota para exibir a página consulta.html
+app.get('/consulta', (req, res) => {
+    res.render(__dirname + '/consulta.ejs');
+    // server.use(express.static(_dirname + '/'));
+});
+
+
+// Iniciar o servidor
+app.listen(port, () => {
+    console.log(`Servidor Express está rodando na porta ${port}`);
+});
