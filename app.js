@@ -84,3 +84,4 @@ app.get('/consulta', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor Express está rodando na porta ${port}`);
 });
+
