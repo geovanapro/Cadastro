@@ -3,15 +3,14 @@ const mysql = require('mysql2');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 8080; // Porta em que o servidor será executado
 
 app.use(express.urlencoded({ extended: true }));
 
 const con = mysql.createConnection({
-    host: "localhost",
-    user: "phpmyadmin",
-    password: "aluno",
-    database: "medical"
+  host: "localhost",
+  user: "phpmyadmin",
+  password: "phpmyadmin",
+  database: "polarisdb"
 });
 
 app.use(
@@ -24,15 +23,9 @@ app.use(
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Configurar EJS como o motor de visualização
-app.set('view engine', 'ejs');
-
-app.get('/', (req, res) => {
-    res.render(__dirname + '/login.ejs');
-});
 
 app.get('/login', (req, res) => {
-    res.render(__dirname + '/login.ejs');
+    res.sendFile(__dirname + '/login.html');
 });
 
 app.post('/login', (req, res) => {
@@ -55,33 +48,48 @@ app.post('/login', (req, res) => {
     });
 });
 
-// Rota para exibir a página home.html
-app.get('/home', (req, res) => {
-    res.render(__dirname + '/home.ejs');
-    //server.use(express.static(_dirname + '/'));
+// Rota para a página do painel
+app.get('/dashboard', (req, res) => {
+//
+if (req.session.loggedin) {
+    res.sendFile(__dirname + '/index.html');
+} else {
+    res.send('Faça login para acessar esta página. <a href="/login">Login</a>');
+}
 });
 
-// Rota para exibir a página login.html
-app.get('/login', (req, res) => {
-    res.render(__dirname + '/login.ejs');
-    // server.use(express.static(_dirname + '/'));
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
 });
 
-// Rota para exibir a página cadastro.html
+
 app.get('/cadastro', (req, res) => {
-    res.render(__dirname + '/cadastro.ejs');
-    // server.use(express.static(_dirname + '/'));
+    res.sendFile(__dirname + '/cadastro.html');
 });
 
-// Rota para exibir a página consulta.html
-app.get('/consulta', (req, res) => {
-    res.render(__dirname + '/consulta.ejs');
-    // server.use(express.static(_dirname + '/'));
+app.post('/cadastrar', (req, res) => {
+    const nome = req.body.nome;
+    const senha = req.body.senha;
+    const CPF = req.body.CPF;
+//
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log("Connected!");
+
+        const sql = `INSERT INTO users (nome, senha) VALUES ('${nome}', '${senha}')`;
+
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("1 record inserted");
+            res.send('Usuário cadastrado com sucesso!');
+        });
+    });
 });
 
-
-// Iniciar o servidor
-app.listen(port, () => {
-    console.log(`Servidor Express está rodando na porta ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
-
